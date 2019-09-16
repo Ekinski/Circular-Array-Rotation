@@ -1,0 +1,75 @@
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
+
+class Solution {
+
+    // Complete the circularArrayRotation function below.
+    static int[] circularArrayRotation(int[] a, int k, int[] queries) {
+        int[] answer = new int[queries.Length];
+        
+
+        for (int b =0; b < queries.Length; b++){
+            // no rotation, the number of rotation is == to a.Length   
+            if(k == a.Length){
+                answer[b] = a[queries[b]];
+                continue;
+            }
+            // changes k to right amount of rotations
+            if (k > a.Length){
+                int CorrectRotation = k % a.Length;
+                k = CorrectRotation;
+                
+            }
+            if ( queries[b] - k >= 0){
+                answer[b] = a[queries[b] - k ];
+            } else if ( queries[b] - k < 0){
+                //c becomes - which means we need to add it to rotation
+                int c = queries[b] - k;
+                answer[b] = a[ c + a.Length ];
+            }
+            
+        }
+        
+        return answer;
+    }
+
+    static void Main(string[] args) {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+        string[] nkq = Console.ReadLine().Split(' ');
+
+        int n = Convert.ToInt32(nkq[0]);
+
+        int k = Convert.ToInt32(nkq[1]);
+
+        int q = Convert.ToInt32(nkq[2]);
+
+        int[] a = Array.ConvertAll(Console.ReadLine().Split(' '), aTemp => Convert.ToInt32(aTemp))
+        ;
+
+        int[] queries = new int [q];
+
+        for (int i = 0; i < q; i++) {
+            int queriesItem = Convert.ToInt32(Console.ReadLine());
+            queries[i] = queriesItem;
+        }
+
+        int[] result = circularArrayRotation(a, k, queries);
+
+        textWriter.WriteLine(string.Join("\n", result));
+
+        textWriter.Flush();
+        textWriter.Close();
+    }
+}
