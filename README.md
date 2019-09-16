@@ -33,3 +33,7 @@ Input (int[] a, int k, int[] queries)
 0  <- q[] what integer at give postion 0 should return new integer after rotation.
 1  <- q[] what integer at give postion 1 should return new integer after rotation.
 2  <- q[] what integer at give postion 2 should return new integer after rotation.
+
+
+
+Challenge from - https://www.hackerrank.com/challenges/circular-array-rotation/problem
